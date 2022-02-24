@@ -110,6 +110,7 @@ function dialog(dialogtype; value, className = "", label = "dialog", icon = noth
         console.log(this.dialog.$dialogtype($options, $callback));
     }
     """)
+    theme = gettheme()
     className = mergeclasses(getclass(theme, :button), className)
     content = if icon === nothing
         (label,)
