@@ -99,8 +99,8 @@ end
 end
 
 @testset "slider" begin
-    @test isfile(InteractBase.nouislider_min_js)
-    @test isfile(InteractBase.nouislider_min_css)
+    @test isfile(InteractBase.nouislider_min_js())
+    @test isfile(InteractBase.nouislider_min_css())
     w = Dates.Date("2000-11-11") : Day(1) : Dates.Date("2000-12-12")
     s = InteractBase.rangeslider(w, value = [w[10], w[20]])
     @test observe(s)[] == [w[10], w[20]]
@@ -210,8 +210,8 @@ end
 end
 
 @testset "output" begin
-    @test isfile(InteractBase.katex_min_js)
-    @test isfile(InteractBase.katex_min_css)
+    @test isfile(InteractBase.katex_min_js())
+    @test isfile(InteractBase.katex_min_css())
     l = Observable("\\sum_{i=1}^{\\infty} e^i")
     a = latex(l)
     @test widgettype(a) == :latex

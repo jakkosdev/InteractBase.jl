@@ -1,8 +1,7 @@
 using WebIO, JSExpr
 
-const katex_min_js = @path joinpath(@__DIR__, "..", "assets", "katex.min.js")
-
-const katex_min_css = @path joinpath(@__DIR__, "..", "assets", "katex.min.css")
+@memoize katex_min_js() = joinpath(folder_dir, "assets", "katex.min.js")
+@memoize katex_min_css() = joinpath(folder_dir, "assets", "katex.min.css")
 
 """
 `latex(txt)`
@@ -13,8 +12,8 @@ Render `txt` in LaTeX using KaTeX. Backslashes need to be escaped:
 function latex(theme::WidgetTheme, txt)
     (txt isa AbstractObservable) || (txt = Observable(txt))
     w = Scope(imports=[
-        katex_min_js,
-        katex_min_css
+        katex_min_js(),
+        katex_min_css()
     ])
 
     w["value"] = txt
@@ -132,9 +131,9 @@ function highlight(theme::WidgetTheme, txt; language = "julia")
     s = "code"*randstring(16)
 
     w = Scope(imports = [
-       highlight_css,
-       prism_js,
-       prism_css,
+       highlight_css(),
+       prism_js(),
+       prism_css(),
     ])
 
     w["value"] = txt

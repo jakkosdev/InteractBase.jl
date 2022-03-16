@@ -91,7 +91,7 @@ function rangeslider(theme::WidgetTheme, vals::AbstractUnitRange{<:Integer}, for
     orientation = string(orientation)
     preprocess = T<:Vector ? js"unencoded.map(Math.round)" : js"Math.round(unencoded[0])"
 
-    scp = Scope(imports = vcat([nouislider_min_js, nouislider_min_css], libraries(theme)))
+    scp = Scope(imports = vcat([nouislider_min_js(), nouislider_min_css()], libraries(theme)))
     setobservable!(scp, "index", index)
     fromJS = Observable(scp, "fromJS", false)
     changes = Observable(scp, "changes", 0)

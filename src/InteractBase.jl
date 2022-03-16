@@ -1,6 +1,6 @@
 module InteractBase
 
-using WebIO, OrderedCollections, Observables, CSSUtil, Colors, JSExpr
+using WebIO, OrderedCollections, Observables, CSSUtil, Colors, JSExpr, Memoize
 import Observables: ObservablePair, AbstractObservable
 import JSExpr: JSString
 using Random
@@ -87,13 +87,14 @@ export slap_design!
 abstract type WidgetTheme<:Widgets.AbstractBackend; end
 struct NativeHTML<:WidgetTheme; end
 
-const font_awesome = @path joinpath(@__DIR__, "..", "assets", "all.js")
-const prism_js = @path joinpath(@__DIR__, "..", "assets", "prism.js")
-const prism_css = @path joinpath(@__DIR__, "..", "assets", "prism.css")
-const highlight_css = @path joinpath(@__DIR__, "..", "assets", "highlight.css")
-const nouislider_min_js = @path joinpath(@__DIR__, "..", "assets", "nouislider.min.js")
-const nouislider_min_css = @path joinpath(@__DIR__, "..", "assets", "nouislider.min.css")
-const style_css = @path joinpath(@__DIR__, "..", "assets", "style.css")
+folder_dir = @path joinpath(@__DIR__, "..")
+@memoize font_awesome() = joinpath(folder_dir, "assets", "all.js")
+@memoize prism_js() = joinpath(folder_dir, "assets", "prism.js")
+@memoize prism_css() = joinpath(folder_dir, "assets", "prism.css")
+@memoize highlight_css() = joinpath(folder_dir, "assets", "highlight.css")
+@memoize nouislider_min_js() = joinpath(folder_dir, "assets", "nouislider.min.js")
+@memoize nouislider_min_css() = joinpath(folder_dir, "assets", "nouislider.min.css")
+@memoize style_css() = joinpath(folder_dir, "assets", "style.css")
 
 include("classes.jl")
 include("backends.jl")

@@ -1,4 +1,4 @@
-libraries(::WidgetTheme) = [style_css]
+libraries(::WidgetTheme) = [style_css()]
 
 Base.@deprecate_binding backend Widgets.backends
 
